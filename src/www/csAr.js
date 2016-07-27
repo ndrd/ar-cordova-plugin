@@ -24,6 +24,7 @@ AR.prototype = {
         else maxDistance = params.maxDistance;
 
         if(params.geoLocations === undefined) locs = [];
+        console.log(locs);
         params.geoLocations.forEach(function (loc) {
             if(typeof loc.latitude == "number" &&
                typeof loc.longitude == "number" &&
