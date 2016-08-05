@@ -194,7 +194,9 @@
     self.callback = nil;
     self.radarRange = 0;
 
-    CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
+    CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
+                                                messageAsDictionary:nil];
+    
     [self.commandDelegate sendPluginResult:result callbackId:cbId];
 }
 

@@ -22,6 +22,7 @@
 
 @property (nonatomic, retain)	NSString *title;
 @property (nonatomic, copy)		NSString *subtitle;
+@property (nonatomic, copy)		NSString *imageURL;
 @property (nonatomic) double	radialDistance;
 @property (nonatomic) double	inclination;
 @property (nonatomic) double	azimuth;
