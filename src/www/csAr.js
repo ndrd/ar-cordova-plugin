@@ -26,9 +26,11 @@ AR.prototype = {
         if(params.geoLocations === undefined) locs = [];
         console.log(locs);
         params.geoLocations.forEach(function (loc) {
-            if(typeof loc.latitude == "number" &&
-               typeof loc.longitude == "number" &&
-               typeof loc.name == "string"
+            if(typeof loc.latitude != "undefined" &&
+               typeof loc.longitude != "undefined" &&
+               typeof loc.image != "undefined" &&
+               typeof loc.kind != "undefined" &&
+               typeof loc.id != "undefined" &&
             ) {
                 locs.push(loc);
             }

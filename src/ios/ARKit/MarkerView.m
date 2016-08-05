@@ -17,7 +17,7 @@
 @implementation MarkerView{
     BOOL                    _allowsCallout;
     UIImage                 *_bgImage;
-    UIImage                 *_typeObject;
+    UIImage                 *_logoImage;
     UILabel                 *_lblDistance;
     id<ARMarkerDelegate>    _delegate;
     ARGeoCoordinate         *_coordinateInfo;
@@ -32,12 +32,11 @@
     _coordinateInfo = coordinate;
     _delegate       = aDelegate;
     _allowsCallout  = allowsCallout;
-    _logoImage      = [UIImage imageNamed:@"bgCallout.png"];
     _bgImage        = [UIImage imageNamed:@"bgCallout.png"];
 
-    UIImage *image = [UIImage imageWithData: [
+    _logoImage = [UIImage imageWithData: [
         NSData dataWithContentsOfURL: [
-            NSURL URLWithString:@"http://ws.cdyne.com/WeatherWS/Images/thunderstorms.gif"]]];
+            NSURL URLWithString:coordinate imageURL]]];
 
     
     UIImage *disclosureImage    = [UIImage imageNamed:@"bgCalloutDisclosure.png"];
@@ -54,8 +53,8 @@
             [self setUserInteractionEnabled:YES];
         }
     
-        UIImageView *logoImageView = [[UIImageView alloc] initWithImage:_bgImage];
-        [self addSubview:bgImageView];
+        UIImageView *logoImageView = [[UIImageView alloc] initWithImage:_logoImage];
+        [self addSubview:logoImageView];
 
         UIImageView *bgImageView = [[UIImageView alloc] initWithImage:_bgImage];
         [self addSubview:bgImageView];
