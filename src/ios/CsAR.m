@@ -39,6 +39,10 @@
         double lat = [[loc objectForKey:@"latitude"] doubleValue];
         double lng = [[loc objectForKey:@"longitude"] doubleValue];
         NSString *name = [loc objectForKey:@"name"];
+        NSString *imageURL = [loc objectForKey:@"image"];
+        NSString *placeID = [loc objectForKey:@"id"];
+        NSString *kind = [loc objectForKey:@"kind"];
+
         CLLocation *clLoc = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
         ARGeoCoordinate *arCoord = [ARGeoCoordinate coordinateWithLocation:clLoc
                                                     locationTitle:name];
@@ -168,6 +172,8 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:coordinate.title, @"name"
                                                                    ,lat, @"latitude"
                                                                    ,lon, @"longitude"
+                                                                   ,coordinate.id, @"id"
+                                                                   ,coordinate.kind, @"kind"
                                                                    ,NULL];
 
     NSString *cbId = [self.callback callbackId];

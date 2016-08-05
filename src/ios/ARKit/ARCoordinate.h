@@ -21,8 +21,10 @@
 + (ARCoordinate *)coordinateWithRadialDistance:(double)newRadialDistance inclination:(double)newInclination azimuth:(double)newAzimuth;
 
 @property (nonatomic, retain)	NSString *title;
-@property (nonatomic, copy)		NSString *subtitle;
-@property (nonatomic, copy)		NSString *imageURL;
+@property (nonatomic, retain)	NSString *subtitle;
+@property (nonatomic, retain)	NSString *imageURL;
+@property (nonatomic, retain)	NSString *id;
+@property (nonatomic, retain)	NSString *kind;
 @property (nonatomic) double	radialDistance;
 @property (nonatomic) double	inclination;
 @property (nonatomic) double	azimuth;
