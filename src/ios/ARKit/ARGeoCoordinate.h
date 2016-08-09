@@ -21,6 +21,11 @@
 
 + (ARGeoCoordinate *)coordinateWithLocation:(CLLocation *)location locationTitle:(NSString *)titleOfLocation;
 + (ARGeoCoordinate *)coordinateWithLocation:(CLLocation *)location fromOrigin:(CLLocation *)origin;
++ (ARGeoCoordinate *)coordinateWithLocation:(CLLocation *)location
+                              locationTitle:(NSString *)titleOfLocation
+                                 locationID:(NSString *)idOfLocation
+                               locationKind:(NSString *)kindOfLocation
+                              locationImage:(NSString *)imageOfLocation;
 
 - (void)calibrateUsingOrigin:(CLLocation *)origin;
 

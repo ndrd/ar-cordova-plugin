@@ -71,4 +71,15 @@
 	return newCoordinate;
 }
 
++ (ARGeoCoordinate *)coordinateWithLocation:(CLLocation *)location
+                              locationTitle:(NSString *)titleOfLocation
+ {
+    
+    ARGeoCoordinate *newCoordinate	= [[ARGeoCoordinate alloc] init];
+    [newCoordinate setGeoLocation: location];
+    [newCoordinate setTitle: titleOfLocation];
+    
+    return newCoordinate;
+}
+
 @end

@@ -8,6 +8,7 @@
 
     <name>AR Plugin</name>
     <author>TJ Woon (tj@cloudsky.org)</author>
+    <author>Jonathan Andrade (tj@cloudsky.org)</author>
     <description>A Cordova plugin for implementing Augmented Reality apps.</description>
     <license>Apache 2.0</license>
     <keywords>augmented,reality,augmented reality,arkit,ar</keywords>

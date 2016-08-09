@@ -35,8 +35,10 @@
     _bgImage        = [UIImage imageNamed:@"bgCallout.png"];
 
     _logoImage = [UIImage imageWithData: [
-        NSData dataWithContentsOfURL: [
-            NSURL URLWithString:coordinate imageURL]]];
+        NSData dataWithContentsOfURL: [NSURL URLWithString:coordinate.imageURL]]];
+    
+
+
 
     
     UIImage *disclosureImage    = [UIImage imageNamed:@"bgCalloutDisclosure.png"];
