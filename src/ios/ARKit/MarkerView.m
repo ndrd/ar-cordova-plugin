@@ -36,14 +36,12 @@
 
     _logoImage = [UIImage imageWithData: [
         NSData dataWithContentsOfURL: [NSURL URLWithString:coordinate.imageURL]]];
-    
-
-
-
-    
+        
     UIImage *disclosureImage    = [UIImage imageNamed:@"bgCalloutDisclosure.png"];
     CGSize calloutSize          = _bgImage.size;
 	CGRect theFrame             = CGRectMake(0, 0, calloutSize.width, calloutSize.height);
+
+    theFrame
 	
     
 	if(self = [super initWithFrame:theFrame]){
@@ -71,7 +69,7 @@
 		[titleLabel setTextColor:		[UIColor whiteColor]];
 		[titleLabel setTextAlignment:	NSTextAlignmentCenter];
         [titleLabel setFont:            [UIFont fontWithName:@"Helvetica-Bold" size:17.0]];
-		[titleLabel setText:			[coordinate title]];
+		[titleLabel setText:			[NSString stringWithFormat: @"%@ %@", coordinate title, coordinate kind]];
         [self addSubview:titleLabel];
         
         NSLocale *locale = [NSLocale currentLocale];

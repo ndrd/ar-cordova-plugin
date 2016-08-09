@@ -24,7 +24,6 @@ AR.prototype = {
         else maxDistance = params.maxDistance;
 
         if(params.geoLocations === undefined) locs = [];
-        console.log(locs);
         params.geoLocations.forEach(function (loc) {
             if(typeof loc.latitude != "undefined" &&
                typeof loc.longitude != "undefined" &&
@@ -35,6 +34,8 @@ AR.prototype = {
                 locs.push(loc);
             }
         });
+
+        console.log(locs);
 
         exec(success, failure, 'CsAR', 'showGeolocationsForSelection', [{
             maxDistance: maxDistance,
