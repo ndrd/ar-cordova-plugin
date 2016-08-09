@@ -30,7 +30,7 @@ AR.prototype = {
                typeof loc.longitude != "undefined" &&
                typeof loc.image != "undefined" &&
                typeof loc.kind != "undefined" &&
-               typeof loc.id != "undefined" &&
+               typeof loc.id != "undefined" 
             ) {
                 locs.push(loc);
             }
