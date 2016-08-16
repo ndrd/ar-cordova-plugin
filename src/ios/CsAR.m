@@ -42,11 +42,16 @@
         NSString *imageURL = [loc objectForKey:@"image"];
         NSString *placeID = [loc objectForKey:@"id"];
         NSString *kind = [loc objectForKey:@"kind"];
-
+        
+       
         CLLocation *clLoc = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
-        ARGeoCoordinate *arCoord = [ARGeoCoordinate coordinateWithLocation:clLoc
-                                                    locationTitle:name];
+
+        ARGeoCoordinate *arCoord = [ARGeoCoordinate coordinateWithLocationB:clLoc locationTitle:name locationID:placeID locationKind:kind locationImage:imageURL];
+        
+        NSLog(@"delegate worked click on %@", [arCoord title]);
+        
         [ingested addObject:arCoord];
+        
     }
 
     self.geoLocations = ingested;

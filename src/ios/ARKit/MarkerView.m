@@ -36,7 +36,11 @@
 
     _logoImage = [UIImage imageWithData: [
         NSData dataWithContentsOfURL: [NSURL URLWithString:coordinate.imageURL]]];
-        
+    
+
+
+
+    
     UIImage *disclosureImage    = [UIImage imageNamed:@"bgCalloutDisclosure.png"];
     CGSize calloutSize          = _bgImage.size;
 	CGRect theFrame             = CGRectMake(0, 0, calloutSize.width, calloutSize.height);
