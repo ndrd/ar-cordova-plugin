@@ -56,6 +56,7 @@
         }
     
         UIImageView *logoImageView = [[UIImageView alloc] initWithImage:_logoImage];
+        logoImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:logoImageView];
 
         UIImageView *bgImageView = [[UIImageView alloc] initWithImage:_bgImage];
@@ -84,7 +85,7 @@
 		[_lblDistance setTextAlignment:      NSTextAlignmentCenter];
         [_lblDistance setFont:               [UIFont fontWithName:@"Helvetica" size:13.0]];
 		if(_usesMetric == YES){
-            [_lblDistance setText:[NSString stringWithFormat:@"%.2f km", [_coordinateInfo distanceFromOrigin]/1000.0f]];
+            [_lblDistance setText:[NSString stringWithFormat:@"%.2f km", [_coordinateInfo distanceFromOrigin]]];
         } else {
             [_lblDistance setText:[NSString stringWithFormat:@"%.2f mi", ([_coordinateInfo distanceFromOrigin]/1000.0f) * 0.621371]];
         }
@@ -99,6 +100,17 @@
         
         
         [self setBackgroundColor:[UIColor clearColor]];
+        if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+            [self setBackgroundColor:[UIColor clearColor]];
+            UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+            UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+            blurEffectView.frame = [self bounds];
+            blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
+            [self addSubview:blurEffectView];
+        } else {
+            [self setBackgroundColor:[UIColor blackColor]];
+        }
 	}
 	
     return self;
