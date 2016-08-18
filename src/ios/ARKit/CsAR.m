@@ -77,7 +77,7 @@
     // TMP FIXME [ctrl setRadarPointColour:[UIColor whiteColor]];
     [ctrl setRadarRange:self.radarRange];
     [ctrl setOnlyShowItemsWithinRadarRange:YES];
-    [ctrl setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal]; // ? TODO CHECK FIXME
+    [ctrl setModalTransitionStyle:UIModalTransitionStylePartialCurl]; // ? TODO CHECK FIXME
     [self.viewController presentViewController:ctrl animated:YES completion:nil];
 }
 
@@ -147,6 +147,8 @@
 
     NSArray *locs = [args objectForKey:@"geoLocations"];
     [self ingestGeoLocations:locs];
+    
+    NSString *override =[args objectForKey:@"override"];
 
     callback = command;
 
@@ -163,6 +165,11 @@
         default:
             [self startARWithGeoLocations];
     }
+}
+
+- (void) justShowGeolocation:(CDVInvokedUrlCommand*)command
+{
+    [self startARWithGeoLocations];
 }
 
 

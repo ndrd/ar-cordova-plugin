@@ -35,25 +35,25 @@
     _delegate       = aDelegate;
     _allowsCallout  = allowsCallout;
     _bgImage        = [UIImage imageNamed:@"bgCallout.png"];
-
-    _logoImage = [UIImage imageWithData: [
-        NSData dataWithContentsOfURL: [NSURL URLWithString:coordinate.imageURL]]];
     
-
-
-
+    _logoImage = [UIImage imageWithData: [
+                                          NSData dataWithContentsOfURL: [NSURL URLWithString:coordinate.imageURL]]];
+    
+    
+    
+    
     
     UIImage *disclosureImage    = [UIImage imageNamed:@"bgCalloutDisclosure.png"];
     CGSize calloutSize          = _bgImage.size;
-	CGRect theFrame             = CGRectMake(0, 0, calloutSize.width + LOGO_SIZE, LOGO_SIZE + 2 * LABEL_MARGIN);
-
-
+    CGRect theFrame             = CGRectMake(0, 0, calloutSize.width + LOGO_SIZE, LOGO_SIZE + 2 * LABEL_MARGIN);
     
-	if(self = [super initWithFrame:theFrame]){
+    
+    
+    if(self = [super initWithFrame:theFrame]){
         CALayer *layer = [self layer];
         layer.cornerRadius = 5;
         layer.shadowOffset = CGSizeMake(5.0, 5.0);
-
+        
         
         [self setContentMode:UIViewContentModeScaleAspectFit];
         [self setAutoresizesSubviews:YES];
@@ -63,11 +63,11 @@
         }
         
         /*
-        UIImageView *logoImageView = [[UIImageView alloc] initWithImage:_logoImage];
-        logoImageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self addSubview:logoImageView];
-        */
-
+         UIImageView *logoImageView = [[UIImageView alloc] initWithImage:_logoImage];
+         logoImageView.contentMode = UIViewContentModeScaleAspectFit;
+         [self addSubview:logoImageView];
+         */
+        
         
         if (!UIAccessibilityIsReduceTransparencyEnabled()) {
             [self setBackgroundColor:[UIColor clearColor]];
@@ -87,7 +87,7 @@
         
         [logoImageView setImage:_logoImage];
         [self addSubview:logoImageView];
-
+        
         //UIImageView *bgImageView = [[UIImageView alloc] initWithImage:_bgImage];
         //[self addSubview:bgImageView];
         
@@ -98,30 +98,30 @@
         }
         
         UILabel *titleLabel	= [[UILabel alloc] initWithFrame:CGRectMake(LABEL_MARGIN + LOGO_SIZE, LABEL_MARGIN, labelSize.width, labelSize.height)];
-		[titleLabel setBackgroundColor: [UIColor clearColor]];
-		[titleLabel setTextColor:		[UIColor whiteColor]];
-		[titleLabel setTextAlignment:	NSTextAlignmentCenter];
+        [titleLabel setBackgroundColor: [UIColor clearColor]];
+        [titleLabel setTextColor:		[UIColor whiteColor]];
+        [titleLabel setTextAlignment:	NSTextAlignmentCenter];
         [titleLabel setFont:            [UIFont fontWithName:@"Helvetica-Bold" size:20.0]];
-		[titleLabel setText:			[coordinate title]];
+        [titleLabel setText:			[coordinate title]];
         [self addSubview:titleLabel];
         
         NSLocale *locale = [NSLocale currentLocale];
         _usesMetric = [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
-
+        
         
         _lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(LABEL_MARGIN * 3, LABEL_HEIGHT + LABEL_MARGIN, labelSize.width, labelSize.height)];
-		[_lblDistance setBackgroundColor:    [UIColor clearColor]];
-		[_lblDistance setTextColor:          [UIColor whiteColor]];
-		[_lblDistance setTextAlignment:      NSTextAlignmentCenter];
+        [_lblDistance setBackgroundColor:    [UIColor clearColor]];
+        [_lblDistance setTextColor:          [UIColor whiteColor]];
+        [_lblDistance setTextAlignment:      NSTextAlignmentCenter];
         [_lblDistance setFont:               [UIFont fontWithName:@"Helvetica" size:13.0]];
-		if(_usesMetric == YES){
+        if(_usesMetric == YES){
             [_lblDistance setText:[NSString stringWithFormat:@"%.2f km", [_coordinateInfo distanceFromOrigin]]];
         } else {
             [_lblDistance setText:[NSString stringWithFormat:@"%.2f mi", ([_coordinateInfo distanceFromOrigin]/1000.0f) * 0.621371]];
         }
         [self addSubview:_lblDistance];
         
-		
+        
         if(_allowsCallout){
             UIImageView *disclosureImageView = [[UIImageView alloc] initWithFrame:CGRectMake(calloutSize.width + DISCLOSURE_MARGIN, DISCLOSURE_MARGIN, disclosureImage.size.width, disclosureImage.size.height)];
             [disclosureImageView setImage:[UIImage imageNamed:@"bgCalloutDisclosure.png"]];
@@ -129,8 +129,8 @@
         }
         
         
-	}
-	
+    }
+    
     return self;
     
 }

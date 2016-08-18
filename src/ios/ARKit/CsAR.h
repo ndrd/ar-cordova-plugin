@@ -6,5 +6,6 @@
 
 - (void)canDoAR: (CDVInvokedUrlCommand*)command;
 - (void)showGeolocationsForSelection: (CDVInvokedUrlCommand*)command;
+- (void)justShowGeolocation: (CDVInvokedUrlCommand*)command;
 
 @end
