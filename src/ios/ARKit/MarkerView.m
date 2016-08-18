@@ -9,10 +9,12 @@
 #import "ARViewProtocol.h"
 #import "ARGeoCoordinate.h"
 #import "MarkerView.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define LABEL_HEIGHT        20
-#define LABEL_MARGIN        5
+#define LABEL_MARGIN        15
 #define DISCLOSURE_MARGIN   10
+#define LOGO_SIZE           50
 
 @implementation MarkerView{
     BOOL                    _allowsCallout;
@@ -43,10 +45,15 @@
     
     UIImage *disclosureImage    = [UIImage imageNamed:@"bgCalloutDisclosure.png"];
     CGSize calloutSize          = _bgImage.size;
-	CGRect theFrame             = CGRectMake(0, 0, calloutSize.width, calloutSize.height);
-	
+	CGRect theFrame             = CGRectMake(0, 0, calloutSize.width + LOGO_SIZE, LOGO_SIZE + 2 * LABEL_MARGIN);
+
+
     
 	if(self = [super initWithFrame:theFrame]){
+        CALayer *layer = [self layer];
+        layer.cornerRadius = 5;
+        layer.shadowOffset = CGSizeMake(5.0, 5.0);
+
         
         [self setContentMode:UIViewContentModeScaleAspectFit];
         [self setAutoresizesSubviews:YES];
@@ -54,24 +61,47 @@
         if(_allowsCallout){
             [self setUserInteractionEnabled:YES];
         }
-    
+        
+        /*
         UIImageView *logoImageView = [[UIImageView alloc] initWithImage:_logoImage];
         logoImageView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:logoImageView];
+        */
 
-        UIImageView *bgImageView = [[UIImageView alloc] initWithImage:_bgImage];
-        [self addSubview:bgImageView];
         
-        CGSize labelSize = CGSizeMake(calloutSize.width - (LABEL_MARGIN * 2), LABEL_HEIGHT);
-        if(_allowsCallout){
-            labelSize.width -= disclosureImage.size.width + (DISCLOSURE_MARGIN * 2);
+        if (!UIAccessibilityIsReduceTransparencyEnabled()) {
+            [self setBackgroundColor:[UIColor clearColor]];
+            UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+            UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+            [blurEffectView setFrame: [self bounds]];
+            //blurEffectView.frame = [self bounds];
+            //blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
+            [self addSubview:blurEffectView];
+        } else {
+            [self setBackgroundColor:[UIColor blackColor]];
         }
         
-        UILabel *titleLabel	= [[UILabel alloc] initWithFrame:CGRectMake(LABEL_MARGIN, LABEL_MARGIN, labelSize.width, labelSize.height)];
+        UIImageView *logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(DISCLOSURE_MARGIN, DISCLOSURE_MARGIN, LOGO_SIZE, LOGO_SIZE)];
+        [logoImageView setContentMode: UIViewContentModeScaleAspectFit];
+        
+        [logoImageView setImage:_logoImage];
+        [self addSubview:logoImageView];
+
+        //UIImageView *bgImageView = [[UIImageView alloc] initWithImage:_bgImage];
+        //[self addSubview:bgImageView];
+        
+        CGSize labelSize = CGSizeMake(calloutSize.width - (DISCLOSURE_MARGIN), LABEL_HEIGHT);
+        
+        if(_allowsCallout){
+            labelSize.width -= disclosureImage.size.width + (DISCLOSURE_MARGIN);
+        }
+        
+        UILabel *titleLabel	= [[UILabel alloc] initWithFrame:CGRectMake(LABEL_MARGIN + LOGO_SIZE, LABEL_MARGIN, labelSize.width, labelSize.height)];
 		[titleLabel setBackgroundColor: [UIColor clearColor]];
 		[titleLabel setTextColor:		[UIColor whiteColor]];
 		[titleLabel setTextAlignment:	NSTextAlignmentCenter];
-        [titleLabel setFont:            [UIFont fontWithName:@"Helvetica-Bold" size:17.0]];
+        [titleLabel setFont:            [UIFont fontWithName:@"Helvetica-Bold" size:20.0]];
 		[titleLabel setText:			[coordinate title]];
         [self addSubview:titleLabel];
         
@@ -79,7 +109,7 @@
         _usesMetric = [[locale objectForKey:NSLocaleUsesMetricSystem] boolValue];
 
         
-        _lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(0, LABEL_HEIGHT + LABEL_MARGIN, labelSize.width, labelSize.height)];
+        _lblDistance = [[UILabel alloc] initWithFrame:CGRectMake(LABEL_MARGIN * 3, LABEL_HEIGHT + LABEL_MARGIN, labelSize.width, labelSize.height)];
 		[_lblDistance setBackgroundColor:    [UIColor clearColor]];
 		[_lblDistance setTextColor:          [UIColor whiteColor]];
 		[_lblDistance setTextAlignment:      NSTextAlignmentCenter];
@@ -93,24 +123,12 @@
         
 		
         if(_allowsCallout){
-            UIImageView *disclosureImageView = [[UIImageView alloc] initWithFrame:CGRectMake(calloutSize.width - disclosureImage.size.width - DISCLOSURE_MARGIN, DISCLOSURE_MARGIN, disclosureImage.size.width, disclosureImage.size.height)];
+            UIImageView *disclosureImageView = [[UIImageView alloc] initWithFrame:CGRectMake(calloutSize.width + DISCLOSURE_MARGIN, DISCLOSURE_MARGIN, disclosureImage.size.width, disclosureImage.size.height)];
             [disclosureImageView setImage:[UIImage imageNamed:@"bgCalloutDisclosure.png"]];
             [self addSubview:disclosureImageView];
         }
         
         
-        [self setBackgroundColor:[UIColor clearColor]];
-        if (!UIAccessibilityIsReduceTransparencyEnabled()) {
-            [self setBackgroundColor:[UIColor clearColor]];
-            UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-            UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-            blurEffectView.frame = [self bounds];
-            blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-            
-            [self addSubview:blurEffectView];
-        } else {
-            [self setBackgroundColor:[UIColor blackColor]];
-        }
 	}
 	
     return self;
@@ -120,7 +138,7 @@
 - (void)drawRect:(CGRect)rect{
     [super drawRect:rect];
     if(_usesMetric == YES){
-        [_lblDistance setText:[NSString stringWithFormat:@"%.2f km", [_coordinateInfo distanceFromOrigin]/1000.0f]];
+        [_lblDistance setText:[NSString stringWithFormat:@"%.2f m", [_coordinateInfo distanceFromOrigin]]];
     } else {
         [_lblDistance setText:[NSString stringWithFormat:@"%.2f mi", ([_coordinateInfo distanceFromOrigin]/1000.0f) * 0.621371]];
     }
